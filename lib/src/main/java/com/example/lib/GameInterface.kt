@@ -2,7 +2,7 @@ package com.example.lib
 
 interface GameInterface
 {
-    val mColums: Int
+    val mColumns: Int
     val mRows: Int
 
     //Internal representation of the state of the game  the grid of coloured tokens

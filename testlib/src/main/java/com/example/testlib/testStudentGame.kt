@@ -1,4 +1,5 @@
 package com.example.testlib
+import com.example.logic.StudentGame
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -40,10 +41,10 @@ class testStudentGame
         defaultStudentGame.playToken(0, 1)
         assertEquals(1, defaultStudentGame.mData[0][0])
         defaultStudentGame.playToken(1, 2)
-        assertEquals(1, defaultStudentGame.mData[1][0])
+        assertEquals(2, defaultStudentGame.mData[1][0])
         defaultStudentGame.playToken(0, 1)
         assertEquals(1, defaultStudentGame.mData[0][1])
         defaultStudentGame.playToken(0, 2)
-        assertEquals(1, defaultStudentGame.mData[0][2])
+        assertEquals(2, defaultStudentGame.mData[0][2])
     }
 }
