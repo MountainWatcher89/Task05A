@@ -5,6 +5,8 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import com.example.logic.StudentGame
 
@@ -27,6 +29,10 @@ class GameView: View
 
     private var mPlayer1Paint: Paint
     private var mPlayer2Paint: Paint
+
+    private val myGestureDetector = GestureDetector(context, myGestureListener())
+
+
 
     init
     {
@@ -110,5 +116,44 @@ class GameView: View
             }
         }
 
+    }
+
+    override fun onTouchEvent(ev: MotionEvent): Boolean
+    {
+        return myGestureDetector.onTouchEvent(ev) || super.onTouchEvent(ev)
+    }
+
+    inner class myGestureListener: GestureDetector.SimpleOnGestureListener()
+    {
+        override fun onDown(ev: MotionEvent): Boolean
+        {
+            return true
+        }
+
+        override fun onSingleTapUp(ev: MotionEvent): Boolean {
+            var turn = mStudentGame.playerTurn
+
+            //Work out the width of each column in pixels
+            val colWidth = width / colCount
+
+            //Calculate the column number from the X co-ordinate of the touch event
+            var colTouch = ev.x.toInt() / colWidth
+
+            mStudentGame.playToken(colTouch, turn)
+
+            //Tell the game logic that the user has chosen a column
+            mStudentGame.playToken(colTouch, 1)
+
+            //Refresh the screen display
+            invalidate()
+
+            return true
+        }
+
+    }
+
+    companion object
+    {
+        const val LOGTAG = "MyTask"
     }
 }
