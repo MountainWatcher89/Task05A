@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.example.logic.StudentGame
+
 
 class GameView: View
 {
@@ -13,11 +15,18 @@ class GameView: View
     constructor(context: Context?, attrs: AttributeSet?): super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int): super(context, attrs, defStyleAttr)
 
-    private val colCount = 7
-    private val rowCount = 10
+    private var mStudentGame: StudentGame = StudentGame(8, 12)
+    private val colCount = mStudentGame.mColumns
+    private val rowCount = mStudentGame.mRows
+
+    //private val colCount = 7
+    //private val rowCount = 10
 
     private var mGridPaint: Paint
     private var mNoPlayerPaint: Paint
+
+    private var mPlayer1Paint: Paint
+    private var mPlayer2Paint: Paint
 
     init
     {
@@ -29,6 +38,16 @@ class GameView: View
         mNoPlayerPaint = Paint().apply{
             style = Paint.Style.FILL
             color = Color.WHITE
+        }
+
+        mPlayer1Paint = Paint().apply{
+            style = Paint.Style.FILL
+            color = Color.RED
+        }
+
+        mPlayer2Paint = Paint().apply{
+            style = Paint.Style.FILL
+            color = Color.YELLOW
         }
     }
 
@@ -65,7 +84,23 @@ class GameView: View
         {
             for(row in 0 until rowCount)
             {
-                paint = mNoPlayerPaint
+
+                //Does the game array contain a piece at this location?
+                tokenAtPos = mStudentGame.getToken(col, row)
+
+                //Choose the correct colour for the circle
+                if(tokenAtPos == 1)
+                {
+                    paint = mPlayer1Paint
+                }
+                else if (tokenAtPos == 2)
+                {
+                    paint = mPlayer2Paint
+                }
+                else
+                {
+                    paint = mNoPlayerPaint
+                }
 
                 //Calculate the co-ordinates of the circle
                 val cx = chosenDiameter * col + radius

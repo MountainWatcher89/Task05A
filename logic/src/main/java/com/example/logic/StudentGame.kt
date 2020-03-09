@@ -13,7 +13,15 @@ public class StudentGame (columns: Int = 7, rows: Int = 10) : GameInterface
     //Not specified in the interface - just to show that other things can be added
     var playerTurn: Int = 1
 
-    override fun getToken(column: Int, row: Int): Int
+    init
+    {
+        //Place a few tokens to test the user interface
+        //mData[5][5] = 1
+        //mData[6][3] = 2
+    }
+
+
+        override fun getToken(column: Int, row: Int): Int
     {
         return mData[column][row]
     }
